@@ -49,7 +49,7 @@ var config = {
   },
   plugins: [
     extractPlugin
-  ]
+  ],
 };
 
 module.exports = config;
