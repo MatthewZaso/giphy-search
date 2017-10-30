@@ -4,14 +4,15 @@ import { GifGridItem } from '../components/GifGridItem';
 import { connect } from "react-redux";
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   _onSearch(evt) {
     evt.preventDefault();
 
     this.props.search(evt.target.querySelector('.search-form__input').value);
+  }
+
+  _onSelect(evt) {
+    console.log(evt);
+    this.props.selectGif(1);
   }
 
   render() {
@@ -23,10 +24,10 @@ class App extends Component {
         <Search on_search={this._onSearch} />
         <div className="container">
           <div className="row">
-            <GifGridItem preview_url={'//placehold.it/300x300'} giphy_id={1} />
-            <GifGridItem preview_url={'//placehold.it/300x300'} giphy_id={2} />
-            <GifGridItem preview_url={'//placehold.it/300x300'} giphy_id={3} />
-            <GifGridItem preview_url={'//placehold.it/300x300'} giphy_id={4} />
+            <GifGridItem preview_url={'//placehold.it/300x300'} on_select={this._onSelect} giphy_id={1} />
+            <GifGridItem preview_url={'//placehold.it/300x300'} on_select={this._onSelect} giphy_id={2} />
+            <GifGridItem preview_url={'//placehold.it/300x300'} on_select={this._onSelect} giphy_id={3} />
+            <GifGridItem preview_url={'//placehold.it/300x300'} on_select={this._onSelect} giphy_id={4} />
           </div>
         </div>
       </div>
