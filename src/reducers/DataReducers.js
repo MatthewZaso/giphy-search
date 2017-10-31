@@ -5,9 +5,9 @@ const DataReducers = (state, action) => {
         selected: action.payload,
       });
     break;
-    case "SEARCH":
+    case "UPDATE_DATA":
       state = Object.assign({}, state, {
-        search: action.payload,
+        gifData: action.payload,
       });
     break;
   }

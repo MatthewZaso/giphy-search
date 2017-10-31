@@ -1,6 +1,13 @@
 // Globals
-@import 'global/grid.scss';
+@import 'global/grid';
 
-@import 'containers/App.scss';
+@import 'containers/App';
 
-@import 'components/GifGridItem.scss';
+@import 'components/GifGridItem';
+@import 'components/Search';
+
+body {
+  background-color: #3e3e3e;
+  margin: 0;
+  font-family: 'Helvetica', Arial, sans-serif;
+}

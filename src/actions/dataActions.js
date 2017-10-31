@@ -1,7 +1,7 @@
-export function search(query) {
+export function updateGifData(newData) {
   return {
-    type: "SEARCH",
-    payload: query
+    type: "UPDATE_DATA",
+    payload: newData
   };
 }
 

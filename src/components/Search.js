@@ -7,9 +7,9 @@ class Search extends Component {
 
   render() {
     return (
-      <form className="search-form" onSubmit={this.props.on_search}>
+      <form className="search-form col-12" onSubmit={this.props.on_search}>
         <input className="search-form__input" type="text" name="search" />
-        <button>Search</button>
+        <button className="search-form__button">Search</button>
       </form>
     );
   }
