@@ -1,45 +1,31 @@
-# Eaze Front End Homework
-
-Our Front End code challenge for engineering applicants
-
-## Project
-
-We would like you to build a web app that displays the trending GIFs on [Giphy](https://giphy.com/). 
-Users visiting the website should be able to search for GIFs and see a list of results. The user should be able to expand a GIF and see its details (username, rating, anything you think could be relevant).
-
-Users should have a good user experience on desktop, tablet and mobile devices.
-
-This project is pretty open ended in order to leave you some freedom to improve upon the base by focusing on what you like the most.
-
-We strongly encourage you to pick a couple of optional improvements. The following are just some ideas, so if none of these interest you, feel free to do something that isn’t on this list:
-
-- When the user scrolls the page to the bottom, load new GIFs automatically.
-- Create a mosaic layout and display a placeholder when GIFs are still loading.
-- Show off your animation skills!
-- Sort the results by uploaded time and let the user choose if they prefer ascending or descending ordering.
-- Let the user favorite GIFs and list their favorites. The users should be able to retrieve their favorite GIFs even after refreshing the page.
-- Provide the ultimate user experience: scrolling, searching, fetching… could be optimized for UX.
-- Let the user upload a GIF.
-- Add some unit tests.
+# Matt Zaso - Giphy Search
+A simple, responsive giphy browser. On initial load this site will show all of the most recently trending gifs. Users can select a gif to see it's full-quality version and supplied title. Searching for a gif will return the matching set from the giphy servers.
 
 
-### Project Structure
+## Build System
+- Added Webpack to compile and bundle all file types.
+    - Easily bundle all js and compile scss
+    - Allows us to use webpack dev server and hot reloading
+- Included Babel loader to add support for ES6 code
+    - Uses preset-env to support older browsers
+- Added PostCss/Autoprefixer for wider browser support
 
-We've included all of the boilerplate to get started with this project using [create-react-app](https://github.com/facebookincubator/create-react-app), feel free to use this structure if you'd like. If you'd prefer to use something other than React or you'd prefer a different project structure, go ahead and make any changes you'd like.
+## Project Structure
+- Project pieces separated out into containers, components, with matching css structure for better organization
+    - Containers made to hold majority of app logic, while components are simplified to render-only items.
 
-### Evaluation
+## Frontend
+- Basic, custom 12-col CSS grid added for responsive scaling.
+- Redux added for better scaling and state management
+    - Probably not necessary with the small amount of state management required right now, but offers greater scalability.
+    - Using dispatch feels cleaner than modifying state directly anyways.
+- Makes use of upcoming JS features such as promises and fetch (polyfilled)
 
-The app should run on any computer by running `npm install` and `npm start`.
-We’ll evaluate the exercise by looking at the end result and the code.
+## Potential improvements
+- Cache html/js/css and trending API with serviceworker through workbox plugin for webpack
+    - Initially added, but removed due to not using https locally for development
+- Add paddles to pop-up modal to use a carousel-like experience for browsing
+    - Could be implemented by instead passing all gif data to the modal for easy switching.
+- Use intersection observers (with polyfill) to create an infinite scroll experience
+    - A new reducer could easily add additional gif to the current collection
 
-### Coding at Eaze
-
-At [Eaze](https://www.eaze.com) we strive for writing simple, maintainable and clean code. 
-
-We prefer simplicity and over complexity.
-
-We comment our code and commit often.
-
-We love our users and we really care about providing a good user experience and pleasant UI.
-
-We encourage out of the box thinking and we love to be impressed!

@@ -9,12 +9,14 @@ import { Search } from '../components/Search';
 import { GifGridItem } from '../components/GifGridItem';
 import { ExpandedModal } from '../components/ExpandedModal';
 import { connect } from 'react-redux';
-import { selectGif, updateGifData } from '../actions/dataActions';
+import { selectGif, updateGifData, addGifData } from '../actions/dataActions';
+import { debounce } from '../global/utils';
 
 // Our giphy api key and URLS to use.
 const API_KEY = '5u1dZor3NNYiALYROwvO7wSEpa05Q3Al';
 const TRENDING_URL = `https://api.giphy.com/v1/gifs/trending?api_key=${API_KEY}&limit=25&rating=G`;
 const SEARCH_URL = `https://api.giphy.com/v1/gifs/search?api_key=${API_KEY}&q=testing&limit=25&offset=0&rating=G&lang=en`;
+const OFFSET_INCREMENT = 25;
 
 class App extends Component {
   constructor(props) {
@@ -25,6 +27,9 @@ class App extends Component {
     this._onSelect = this._onSelect.bind(this);
     this._onSearch = this._onSearch.bind(this);
     this._onClose = this._onClose.bind(this);
+
+    this._offset = OFFSET_INCREMENT;
+    this._currentQuery = TRENDING_URL;
   }
 
   /**
@@ -35,8 +40,12 @@ class App extends Component {
   _onSearch(evt) {
     evt.preventDefault();
     const query = evt.target.querySelector('.search-form__input').value;
+    this._currentQuery = SEARCH_URL + '&q=' + query;
 
-    this._getGifData(SEARCH_URL + '&q=' + query);
+    // Reset the offset since we've performed a new search
+    this._offset = OFFSET_INCREMENT;
+
+    this._getGifData(this._currentQuery, true);
   }
 
   /**
@@ -75,8 +84,9 @@ class App extends Component {
    * all calls, then updates our data in the store by using the appropriate
    * function. Fetch is polyfilled for Safari and older browsers.
    * @param {string} query The URL of the giphy service to fetch.
+   * @param {boolean} replaceData Should the data replace the existing data?
    */
-  _getGifData(query) {
+  _getGifData(query, replaceData) {
     const options = {
       headers: {
         Accept: 'application/json',
@@ -86,7 +96,11 @@ class App extends Component {
     // For a successful response, use our dispatch function to update
     // our data in the store.
     const handleOk = response => response.json().then((response) => {
-      this.props.updateGifData(response.data);
+      if (replaceData) {
+        this.props.updateGifData(response.data);
+      } else {
+        this.props.addGifData(response.data);
+      }
     });
 
     return fetch(query, options)
@@ -103,11 +117,43 @@ class App extends Component {
       }).then(handleOk, err => console.log(status));
   }
 
+  /**
+   * The function sets up our intersection observer and callback to monitor
+   * when the user has reached the end of the page and needs to load new gifs.
+   */
+  _observeScrolling() {
+    // We're debouncing the call here for a few seconds because we want to
+    // wait for react/DOM to update before loading additional items
+    const addMore = debounce(() => {
+      this._offset += OFFSET_INCREMENT;
+      console.log('load');
+      this._getGifData(this._currentQuery + '&offset=' + this._offset, false);
+    }, 3000);
+
+    // An intersection observer that checks the position of a sentinal
+    // div to know when we've reached the bottom of the page
+    const observer = new IntersectionObserver(sentinal => {
+      // If sentinal element isn't in the viewport we don't
+      // need to do anything.
+      if (sentinal.intersectionRatio <= 0) {
+        return;
+      }
+
+      addMore();
+    });
+
+    observer.observe(this._sentinalEl);
+  }
+
   /** React */
   componentDidMount() {
     // On page load we can populate the gif data
     // with giphy's trending API to start.
-    this._getGifData(TRENDING_URL);
+    this._getGifData(TRENDING_URL, true);
+
+    this._sentinalEl = document.querySelector('.gif-grid__sentinal');
+
+    this._observeScrolling();
   }
 
   /**
@@ -131,6 +177,7 @@ class App extends Component {
               {this.props.gifData.map((item, index) => {
                 return <GifGridItem preview_url={item.images.fixed_height_downsampled.url} on_select={this._onSelect} giphy_id={item.id} key={index} />
               })}
+              <div className="gif-grid__sentinal"></div>
             </div>
           </div>
           {isExpanded ? (<ExpandedModal gif_data={this.props.selected} on_close={this._onClose} />) : ('')}
@@ -156,6 +203,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     selectGif: (id) => {
       dispatch(selectGif(id));
+    },
+    addGifData: (appendedData) => {
+      dispatch(addGifData(appendedData));
     },
   };
 };

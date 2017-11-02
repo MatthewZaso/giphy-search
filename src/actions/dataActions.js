@@ -11,3 +11,10 @@ export function selectGif(id) {
     payload: id
   };
 }
+
+export function addGifData(gifDataArray) {
+  return {
+    type: "ADD_DATA",
+    payload: gifDataArray
+  };
+}

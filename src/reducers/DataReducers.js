@@ -10,6 +10,11 @@ const DataReducers = (state, action) => {
         gifData: action.payload,
       });
     break;
+    case "ADD_DATA":
+      state = Object.assign({}, state, {
+        gifData: state.gifData.concat(action.payload),
+      });
+    break;
   }
   return state;
 };
