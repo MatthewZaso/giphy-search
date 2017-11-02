@@ -87,7 +87,7 @@ class App extends Component {
           <div className="container">
             <div className="gif-grid-row row">
               {this.props.gifData.map((item, index) => {
-                return <GifGridItem preview_url={item.images.fixed_height_downsampled.url} on_select={this._onSelect} giphy_id={item.id} />
+                return <GifGridItem preview_url={item.images.fixed_height_downsampled.url} on_select={this._onSelect} giphy_id={item.id} key={index} />
               })}
             </div>
           </div>
