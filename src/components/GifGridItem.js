@@ -1,3 +1,8 @@
+/**
+ * @fileoverview GifGridItem
+ * @overview A single gif component that is aligned inside
+ * of our container grid.
+ */
 import React from "react";
 
 export const GifGridItem = (props) => {

@@ -6,6 +6,7 @@
   transform: scale(1);
   transition: transform 0.1s ease-in;
   margin: 10px 0;
+  will-change: transform; // Let GPU handle
 
   @include load-spinner;
 

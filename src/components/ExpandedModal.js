@@ -1,3 +1,8 @@
+/**
+ * @fileoverview ExpandedModal
+ * @overview A modal component that will appear above the content
+ * when a user selects a gif.
+ */
 import React from "react";
 
 export const ExpandedModal = (props) => {

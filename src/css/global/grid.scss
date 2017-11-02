@@ -34,6 +34,7 @@ $breakpoint-sm: 768px;
   clear: both;
 }
 
+// Sets up our base columns for a 12 col grid
 .col-1 { width:($width / 12); }
 .col-2 { width: ($width / 6); }
 .col-3 { width: ($width / 4); }
@@ -47,6 +48,7 @@ $breakpoint-sm: 768px;
 .col-11 { width: ($width / (12 / 11)); }
 .col-12 { width: $width; }
 
+// Mobile first approach
 @media only screen and (min-width: $breakpoint-sm) {
   .col-sm-1 { width:($width / 12); }
   .col-sm-2 { width: ($width / 6); }

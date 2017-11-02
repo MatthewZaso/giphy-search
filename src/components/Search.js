@@ -1,3 +1,8 @@
+/**
+ * @fileoverview Search
+ * @overview A search component containing the form
+ * and all elements the user can interact with to search.
+ */
 import React from 'react';
 
 export const Search = (props) => {
