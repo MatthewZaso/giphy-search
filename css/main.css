@@ -146,7 +146,8 @@
   transition: -webkit-transform 0.1s ease-in;
   transition: transform 0.1s ease-in;
   transition: transform 0.1s ease-in, -webkit-transform 0.1s ease-in;
-  margin: 10px 0; }
+  margin: 10px 0;
+  will-change: transform; }
   .gif-grid-item .load-spinner,
   .gif-grid-item .load-spinner:after {
     border-radius: 50%;
