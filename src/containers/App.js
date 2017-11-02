@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Search from '../components/Search';
+import { Search } from '../components/Search';
 import { GifGridItem } from '../components/GifGridItem';
 import { ExpandedModal } from '../components/ExpandedModal';
 import { connect } from 'react-redux';
@@ -20,7 +20,9 @@ class App extends Component {
 
   _onSearch(evt) {
     evt.preventDefault();
-    this._getSearchData(evt.target.querySelector('.search-form__input').value);
+    const query = evt.target.querySelector('.search-form__input').value;
+
+    this._getGifData(SEARCH_URL + '&q=' + query);
   }
 
   _onSelect(evt) {
@@ -34,13 +36,17 @@ class App extends Component {
     this.props.selectGif(false);
   }
 
+  _getTrendingGifData() {
+    this._getGifData(TRENDING_URL);
+  }
+
   _getGifObjectById(id) {
     return this.props.gifData.find(el => {
       return el.id === id;
     });
   }
 
-  _getSearchData(query) {
+  _getGifData(query) {
     const options = {
       headers: {
         Accept: 'application/json',
@@ -48,11 +54,10 @@ class App extends Component {
     };
 
     const handleOk = response => response.json().then((response) => {
-      console.log(response.data);
       this.props.updateGifData(response.data);
     });
 
-    return fetch(SEARCH_URL + '&q=' + query, options)
+    return fetch(query, options)
       .then((response) => {
         if (response.status >= 200 && response.status < 300) {
           return response;
@@ -62,6 +67,10 @@ class App extends Component {
           throw error;
         }
       }).then(handleOk, err => console.log(status));
+  }
+
+  componentDidMount() {
+    this._getTrendingGifData();
   }
 
   render() {
