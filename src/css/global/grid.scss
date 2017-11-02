@@ -20,8 +20,6 @@ $breakpoint-sm: 768px;
 .row {
   position: relative;
   width: 100%;
-  margin-left: -#{$col-spacing};
-  margin-right: -#{$col-spacing};
 }
 
 .row [class^='col'] {

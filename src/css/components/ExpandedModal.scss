@@ -1,8 +1,10 @@
 .expanded-modal {
   position: fixed;
-  height: 100%;
-  width: 100%;
-  z-index: 1;
+  height: 100vh;
+  width: 100vw;
+  z-index: 2;
+  top: 0;
+  left: 0;
 }
 
 .expanded-modal__backdrop {
@@ -11,6 +13,45 @@
   background: rgba(0, 0, 0, 0.75);
 }
 
-.expanded-modal__image {
+.expanded-modal__close {
+  content: 'x';
+  position: absolute;
+  top: 40px;
+  right: 40px;
+  height: 40px;
+  width: 40px;
+  cursor: pointer;
+  z-index: 1;
 
+  svg {
+    fill: white;
+    stroke: white;
+  }
+}
+
+.expanded-modal__image-wrapper {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.expanded-modal__image {
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+  animation: 0.5s ease-out 0s 1 slideInFromTop;
+}
+
+@keyframes slideInFromTop {
+  0% {
+    transform: translateY(-50px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }

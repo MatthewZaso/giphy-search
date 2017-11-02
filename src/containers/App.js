@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Search from '../components/Search';
 import { GifGridItem } from '../components/GifGridItem';
+import { ExpandedModal } from '../components/ExpandedModal';
 import { connect } from 'react-redux';
 import { selectGif, updateGifData } from '../actions/dataActions';
 
@@ -14,15 +15,20 @@ class App extends Component {
 
     this._onSelect = this._onSelect.bind(this);
     this._onSearch = this._onSearch.bind(this);
+    this._onClose = this._onClose.bind(this);
   }
 
   _onSearch(evt) {
     evt.preventDefault();
-    let searchData = this._getSearchData(evt.target.querySelector('.search-form__input').value);
+    this._getSearchData(evt.target.querySelector('.search-form__input').value);
   }
 
   _onSelect(evt) {
     this.props.selectGif(1);
+  }
+
+  _onClose(evt) {
+    this.props.selectGif(false);
   }
 
   _getSearchData(query) {
@@ -50,6 +56,8 @@ class App extends Component {
   }
 
   render() {
+    let isExpanded = this.props.selected !== false;
+    console.log(this.props.selected);
     return (
       <div className="app">
         <div className="app__header">
@@ -63,6 +71,7 @@ class App extends Component {
             })}
           </div>
         </div>
+        {isExpanded ? (<ExpandedModal gif_url={'//via.placeholder.com/350x150'} on_close={this._onClose} />) : ('')}
       </div>
     );
   }
