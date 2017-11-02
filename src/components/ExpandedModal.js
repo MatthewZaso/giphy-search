@@ -10,7 +10,11 @@ export const ExpandedModal = (props) => {
         </svg>
       </div>
       <div className="expanded-modal__image-wrapper">
-        <img className="expanded-modal__image" src={props.gif_url} />
+        <div className="expanded-modal__image-container">
+          <div className="load-spinner"></div>
+          <img className="expanded-modal__image" src={props.gif_data.images.original.url} />
+          <p className="expanded-modal__title">{props.gif_data.title}</p>
+        </div>
       </div>
     </div>
   );

@@ -1,4 +1,6 @@
 // Globals
+@import 'global/mixins';
+@import 'global/colors';
 @import 'global/grid';
 
 @import 'containers/App';
@@ -8,7 +10,8 @@
 @import 'components/ExpandedModal';
 
 body {
-  background-color: #3e3e3e;
+  color: $lightGray;
+  background-color: $mediumGray;
   margin: 0;
   font-family: 'Helvetica', Arial, sans-serif;
 }

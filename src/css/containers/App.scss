@@ -3,12 +3,31 @@
 }
 
 .app__header {
-  background-color: #222;
-  height: 200px;
-  padding: 40px;
+  background-color: $darkGray;
+  padding: 40px 20px 60px;
   color: white;
 }
 
 .app__title {
+  color: $lightGray;
+  letter-spacing: -0.7px;
+  font-size: 40px;
+  display: inline-block;
+  vertical-align: middle;
 
+  .app__title--bold-white {
+    text-transform: uppercase;
+    color: $white;
+  }
+}
+
+.app__logo {
+  height: 75px;
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 10px;
+}
+
+.app__body {
+  padding: 20px 0;
 }

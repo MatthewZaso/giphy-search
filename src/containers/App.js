@@ -24,11 +24,20 @@ class App extends Component {
   }
 
   _onSelect(evt) {
-    this.props.selectGif(1);
+    const baseTarget = evt.target.closest('.gif-grid-item');
+    const id = baseTarget.getAttribute('data-giphy-id');
+
+    this.props.selectGif(this._getGifObjectById(id));
   }
 
   _onClose(evt) {
     this.props.selectGif(false);
+  }
+
+  _getGifObjectById(id) {
+    return this.props.gifData.find(el => {
+      return el.id === id;
+    });
   }
 
   _getSearchData(query) {
@@ -57,21 +66,24 @@ class App extends Component {
 
   render() {
     let isExpanded = this.props.selected !== false;
-    console.log(this.props.selected);
+
     return (
       <div className="app">
         <div className="app__header">
-          <h1 className="app__title">Giphy Search</h1>
+          <img className="app__logo" src="/src/images/giphy_mark.png" />
+          <h1 className="app__title"><span className="app__title--bold-white">Giphy</span>Search</h1>
           <Search on_search={this._onSearch} />
         </div>
-        <div className="container">
-          <div className="gif-grid-row row">
-            {this.props.gifData.map((item, index) => {
-              return <GifGridItem preview_url={item.images.fixed_height_downsampled.url} on_select={this._onSelect} giphy_id={item.id} />
-            })}
+        <div className="app__body">
+          <div className="container">
+            <div className="gif-grid-row row">
+              {this.props.gifData.map((item, index) => {
+                return <GifGridItem preview_url={item.images.fixed_height_downsampled.url} on_select={this._onSelect} giphy_id={item.id} />
+              })}
+            </div>
           </div>
+          {isExpanded ? (<ExpandedModal gif_data={this.props.selected} on_close={this._onClose} />) : ('')}
         </div>
-        {isExpanded ? (<ExpandedModal gif_url={'//via.placeholder.com/350x150'} on_close={this._onClose} />) : ('')}
       </div>
     );
   }
