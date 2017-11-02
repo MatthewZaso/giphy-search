@@ -79,7 +79,7 @@ class App extends Component {
     return (
       <div className="app">
         <div className="app__header">
-          <img className="app__logo" src="/src/images/giphy_mark.png" />
+          <img className="app__logo" src="/images/giphy_mark.png" />
           <h1 className="app__title"><span className="app__title--bold-white">Giphy</span>Search</h1>
           <Search on_search={this._onSearch} />
         </div>

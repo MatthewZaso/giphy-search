@@ -23,7 +23,12 @@ var config = {
         include: SRC_DIR,
         loader: 'babel-loader',
         query: {
-          presets: ['react'],
+          presets: [
+            'react', ["env", {
+            "targets": {
+              "browsers": ["> 1%", "last 2 versions"]
+            }
+          }]],
         },
       },
       {
