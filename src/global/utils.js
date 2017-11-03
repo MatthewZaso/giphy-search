@@ -1,3 +1,10 @@
+/**
+ * Debounce function, taken from lodash
+ * @param {Function} func The debounced function.
+ * @param {int} wait Time to debounce in ms.
+ * @param {boolean} immediate Should this immediately fire?
+ * @return {Function} The wrapped, debounced function.
+ */
 export function debounce(func, wait, immediate) {
   var timeout;
   return function() {

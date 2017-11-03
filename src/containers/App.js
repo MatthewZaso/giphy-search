@@ -22,14 +22,20 @@ class App extends Component {
   constructor(props) {
     super(props);
 
-    // Binding our listeners here so they maintain
+    // Binding our handlers here so they maintain
     // their context.
     this._onSelect = this._onSelect.bind(this);
     this._onSearch = this._onSearch.bind(this);
     this._onClose = this._onClose.bind(this);
 
+    /** @type {int} The number of gifs to load at a time */
     this._offset = OFFSET_INCREMENT;
+
+    /** @type {string} The current giphy url being used */
     this._currentQuery = TRENDING_URL;
+
+    /** @type {IntersectionObserver} The scrolling intersection observer */
+    this._observer = null;
   }
 
   /**
@@ -103,6 +109,7 @@ class App extends Component {
       }
     });
 
+    // Execute the fetch request.
     return fetch(query, options)
       .then((response) => {
         if (response.status >= 200 && response.status < 300) {
@@ -132,7 +139,7 @@ class App extends Component {
 
     // An intersection observer that checks the position of a sentinal
     // div to know when we've reached the bottom of the page
-    const observer = new IntersectionObserver(sentinal => {
+    this._observer = new IntersectionObserver(sentinal => {
       // If sentinal element isn't in the viewport we don't
       // need to do anything.
       if (sentinal.intersectionRatio <= 0) {
@@ -142,7 +149,7 @@ class App extends Component {
       addMore();
     });
 
-    observer.observe(this._sentinalEl);
+    this._observer.observe(this._sentinalEl);
   }
 
   /** React */
@@ -154,6 +161,12 @@ class App extends Component {
     this._sentinalEl = document.querySelector('.gif-grid__sentinal');
 
     this._observeScrolling();
+  }
+
+  /** React */
+  componentDidUnmount() {
+    // Stop listening for changes on the intersection observer.
+    this._observer.unobserve(this._sentinalEl);
   }
 
   /**
