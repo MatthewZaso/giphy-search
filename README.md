@@ -4,6 +4,9 @@ A simple, responsive giphy browser. On initial load this site will show all of t
 Check it out on github pages here:
 https://matthewzaso.github.io/giphy-search/
 
+or checkout and run it locally with
+`npm install` and `npm run start`
+
 ## Build System
 - Added Webpack to compile and bundle all file types.
     - Easily bundle all js and compile scss
