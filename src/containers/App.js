@@ -190,7 +190,7 @@ class App extends Component {
               {this.props.gifData.map((item, index) => {
                 return <GifGridItem preview_url={item.images.fixed_height_downsampled.url} on_select={this._onSelect} giphy_id={item.id} key={index} />
               })}
-              <div className="gif-grid__sentinal"></div>
+              <div className="gif-grid__sentinal col-12">Loading...</div>
             </div>
           </div>
           {isExpanded ? (<ExpandedModal gif_data={this.props.selected} on_close={this._onClose} />) : ('')}

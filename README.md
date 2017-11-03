@@ -1,5 +1,5 @@
 # Matt Zaso - Giphy Search
-A simple, responsive giphy browser. On initial load this site will show all of the most recently trending gifs. Users can select a gif to see it's full-quality version and supplied title. Searching for a gif will return the matching set from the giphy servers.
+A simple, responsive giphy browser. On initial load this site will show all of the most recently trending gifs. Users can select a gif to see it's full-quality version and supplied title. Searching for a gif will return the matching set from the giphy servers. Scrolling to the bottom of the page will load additional gifs as well.
 
 
 ## Build System
@@ -20,12 +20,12 @@ A simple, responsive giphy browser. On initial load this site will show all of t
     - Probably not necessary with the small amount of state management required right now, but offers greater scalability.
     - Using dispatch feels cleaner than modifying state directly anyways.
 - Makes use of upcoming JS features such as promises and fetch (polyfilled)
+- Use intersection observers (with polyfill) to create an infinite scroll experience
+    - A reducer adds additional gifs to the current collection
 
 ## Potential improvements
 - Cache html/js/css and trending API with serviceworker through workbox plugin for webpack
     - Initially added, but removed due to not using https locally for development
 - Add paddles to pop-up modal to use a carousel-like experience for browsing
     - Could be implemented by instead passing all gif data to the modal for easy switching.
-- Use intersection observers (with polyfill) to create an infinite scroll experience
-    - A new reducer could easily add additional gif to the current collection
 
