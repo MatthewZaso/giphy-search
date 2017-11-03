@@ -1,6 +1,8 @@
 # Matt Zaso - Giphy Search
 A simple, responsive giphy browser. On initial load this site will show all of the most recently trending gifs. Users can select a gif to see it's full-quality version and supplied title. Searching for a gif will return the matching set from the giphy servers. Scrolling to the bottom of the page will load additional gifs as well.
 
+Check it out on github pages here:
+https://matthewzaso.github.io/giphy-search/
 
 ## Build System
 - Added Webpack to compile and bundle all file types.
